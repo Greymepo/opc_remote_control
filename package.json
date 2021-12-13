@@ -1,0 +1,17 @@
+{
+  "name": "orchestration-tool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "type": "module",
+  "author": "Adriaan Mulder",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.1.0",
+    "node-opcua": "^2.62.5"
+  }
+}
