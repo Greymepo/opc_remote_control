@@ -58,7 +58,7 @@ export class OPCHub {
 	}
 
 	async readNodeTree(id) {
-		if (fs.existsSync(`node_trees/${id}.json`)){
+		if (false && fs.existsSync(`node_trees/${id}.json`)){
 			return true;
 		} else {
 			let node_tree = {}
