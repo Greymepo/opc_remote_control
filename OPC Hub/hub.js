@@ -1,11 +1,12 @@
 import fs from 'fs';
-import { ThreeDOrientation } from 'node-opcua-types';
 import { OPCClient, browseTree } from '../OPC Functions/OPC Client functions.js'
 
 
 export class OPCHub {
 
-	constructor(){
+	constructor(serviceId, machineId){
+		this.serviceId = serviceId;
+		this.machineId = machineId;
 		this.devices = {};
 	}
 
@@ -32,13 +33,13 @@ export class OPCHub {
 				// connect to Device and build Session
 				await this.devices[id]['client'].buildOPCSession();
 				await this.readNodeTree(id)
-				return id;
+				return this.devices[id]['client'];
 			} catch (e) {
 				this.devices[id] = null;
 				throw e
 			}
 		} else {
-			return id;
+			return ithis.devices[id]['client'];
 		}
 	}
 
@@ -58,7 +59,7 @@ export class OPCHub {
 	}
 
 	async readNodeTree(id) {
-		if (false && fs.existsSync(`node_trees/${id}.json`)){
+		if (fs.existsSync(`node_trees/${id}.json`)){
 			return true;
 		} else {
 			let node_tree = {}

@@ -2,16 +2,6 @@ import * as node_opcua from "node-opcua"
 import { BrowseNextRequest } from "node-opcua";
 import fs from 'fs';
 
-function ConnectionException(message) {
-	this.message = message;
-	this.name = "ConnectionException";
-}
-
-function SessionException(message) {
-	this.message = message;
-	this.name = "SessionException";
-}
-
 const opc_basic_datatypes = [
     "Null",
     "Boolean",
@@ -70,7 +60,7 @@ class OPCClient {
 			if (callback == null) return await this.session.read(nodes, maxAge);
 			else await this.session.read(nodes, maxAge, callback);
 		} catch (e) {
-			throw new SessionException(e)
+			console.log(e)
 		}
 	}
 
@@ -90,7 +80,7 @@ class OPCClient {
 			console.log("writing!")
 			await this.session.write(nodes);
 		} catch (e) {
-			throw new SessionException(e)
+			console.log(e)
 		}
 	}
 
@@ -99,7 +89,7 @@ class OPCClient {
 			if (callback == null) return await this.session.browse(node);
 			else await this.session.browse(node, callback);
 		} catch (e) {
-			throw new SessionException(e)
+			console.log(e)
 		}
 	}
 
@@ -108,7 +98,7 @@ class OPCClient {
 			if (callback == null) return await this.session.browseNext(continuationPoint, false);
 			else await this.session.browseNext(continuationPoint, false, callback);
 		} catch (e) {
-			throw new SessionException(e)
+			console.log(e)
 		}
 	}
 
@@ -140,7 +130,7 @@ class OPCClient {
 			console.log(`... connected to ${applicationName}`)
 		} catch (e) {
 			console.log("establishing connection failed")
-			throw new ConnectionException(e)
+			console.log(e)
 		}
 
 		//step 2 : create OPC Session after Connection was established
@@ -150,7 +140,7 @@ class OPCClient {
 			console.log("session created!");
 			return this.session
 		} catch (e) {
-			throw new SessionException(e)
+			console.log(e)
 		}
 	}
 
@@ -171,13 +161,12 @@ class OPCClient {
 		if (this.subscription == null) {
 			await this.#initSubscription();
 		}
-
 		// now we set the NodeMonitor for one of the Nodes
 		const monitoredItem = await this.#initNodeMonitor(nodeId);
 
 		// if the subscribed value changes, update the subscription monitor
 		monitoredItem.on("changed", (dataValue) => {
-			callback(dataValue);
+			callback(dataValue.value.value);
 		});
 	}
 
@@ -285,32 +274,42 @@ const nodeWrite= {
 
 
 
-
+/**
+ * browseTree traverses the the entire Node-Tree of an OPC UA Server ans stores it
+ * @params  - client: the client that connects to the OPC Server
+ * 			- node: the root nodeID or node Reference from where the traverse starts
+ * 			- tree: the object in which the resulting Node-Tree is stored
+ * 			- depth: the maximum tree-depth that will be traversed
+ */
 async function browseTree(client, node, tree, depth = 100){
 
 	if (depth == 0) return;
 
 	try {
+		// get the NodeClass of node
 		const nodeClass = await client.readNodes({
 			nodeId: node.nodeId,
 			attributeId: node_opcua.AttributeIds.NodeClass
 		});
-
+		// get the displayed Name of node
 		const displayName = await client.readNodes({
 			nodeId: node.nodeId,
 			attributeId: node_opcua.AttributeIds.DisplayName
 		});
 
-
+		// if the node is an object, it possibly has more children to visit
+		// if it is a variable, it is a leaf
 		if ( nodeClass.value.value == node_opcua.NodeClass.Object ) {
+			// set the name and a new array for the children
 			tree["displayName"] = displayName.value.value.text
-
 			tree["references"] = []
 
+			// fetch every child-reference
 			const browsedNode = await client.browseNode(node)
 			const organzies = await client.browseNext(browsedNode.continuationPoint)
 			let references = browsedNode.references.concat(organzies.references)
 			let j = 0;
+			// call this method recursively for each child of this node
 			for (let i = 0; i < references.length; i++){
 				tree.references[j] = {}
 				await browseTree(client, references[i], tree.references[j], depth - 1)
@@ -321,7 +320,7 @@ async function browseTree(client, node, tree, depth = 100){
 				j++
 			}
 		} else if ( nodeClass.value.value == node_opcua.NodeClass.Variable ) {
-
+			// get the node Information of the node
 			const data = await client.readNodes({
 				nodeId: node.nodeId
 			});
