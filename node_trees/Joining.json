@@ -218,32 +218,17 @@
 											"nodeId": "ns=0;i=3707"
 										},
 										{
-											"displayName": "SubNodes",
-											"references": [
-												{
-													"displayName": "Session_1086897771.SessionDiagnostics",
-													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_1086897771.SessionDiagnostics"
-												},
-												{
-													"displayName": "Session_1086897771.SubscriptionDiagnosticsArray",
-													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_1086897771.SubscriptionDiagnosticsArray"
-												}
-											]
-										},
-										{
 											"displayName": "ClientSession1",
 											"references": [
 												{
-													"displayName": "Session_1086897772.SessionDiagnostics",
+													"displayName": "Session_1086897777.SessionDiagnostics",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_1086897772.SessionDiagnostics"
+													"nodeId": "ns=1;s=Session_1086897777.SessionDiagnostics"
 												},
 												{
-													"displayName": "Session_1086897772.SubscriptionDiagnosticsArray",
+													"displayName": "Session_1086897777.SubscriptionDiagnosticsArray",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_1086897772.SubscriptionDiagnosticsArray"
+													"nodeId": "ns=1;s=Session_1086897777.SubscriptionDiagnosticsArray"
 												}
 											]
 										}

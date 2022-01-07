@@ -233,17 +233,17 @@
 											]
 										},
 										{
-											"displayName": "SubNodes",
+											"displayName": "ClientSession6",
 											"references": [
 												{
-													"displayName": "Session_3485364399.SessionDiagnostics",
+													"displayName": "Session_3485364408.SessionDiagnostics",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3485364399.SessionDiagnostics"
+													"nodeId": "ns=1;s=Session_3485364408.SessionDiagnostics"
 												},
 												{
-													"displayName": "Session_3485364399.SubscriptionDiagnosticsArray",
+													"displayName": "Session_3485364408.SubscriptionDiagnosticsArray",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3485364399.SubscriptionDiagnosticsArray"
+													"nodeId": "ns=1;s=Session_3485364408.SubscriptionDiagnosticsArray"
 												}
 											]
 										},
@@ -251,14 +251,14 @@
 											"displayName": "ClientSession1",
 											"references": [
 												{
-													"displayName": "Session_3485364400.SessionDiagnostics",
+													"displayName": "Session_3485364409.SessionDiagnostics",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3485364400.SessionDiagnostics"
+													"nodeId": "ns=1;s=Session_3485364409.SessionDiagnostics"
 												},
 												{
-													"displayName": "Session_3485364400.SubscriptionDiagnosticsArray",
+													"displayName": "Session_3485364409.SubscriptionDiagnosticsArray",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3485364400.SubscriptionDiagnosticsArray"
+													"nodeId": "ns=1;s=Session_3485364409.SubscriptionDiagnosticsArray"
 												}
 											]
 										}

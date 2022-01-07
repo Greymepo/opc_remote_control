@@ -221,14 +221,14 @@
 											"displayName": "ClientSession1",
 											"references": [
 												{
-													"displayName": "Session_3065147686.SessionDiagnostics",
+													"displayName": "Session_3065147688.SessionDiagnostics",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3065147686.SessionDiagnostics"
+													"nodeId": "ns=1;s=Session_3065147688.SessionDiagnostics"
 												},
 												{
-													"displayName": "Session_3065147686.SubscriptionDiagnosticsArray",
+													"displayName": "Session_3065147688.SubscriptionDiagnosticsArray",
 													"dataType": "ExtensionObject",
-													"nodeId": "ns=1;s=Session_3065147686.SubscriptionDiagnosticsArray"
+													"nodeId": "ns=1;s=Session_3065147688.SubscriptionDiagnosticsArray"
 												}
 											]
 										}
