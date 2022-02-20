@@ -8,17 +8,22 @@ const writeFilePromise = promisify(writeFile)
  * Fetches the program code associated with this machine and rfid code form the db and saves it under [rfid].js
  */
 async function requestProgram(deviceId, rfid){
-	let params = new URLSearchParams();
-	params.append('deviceId', deviceId);
-	params.append('rfid', rfid);
+	try {
+		let params = new URLSearchParams();
+		params.append('deviceId', deviceId);
+		params.append('rfid', rfid);
 
-	let response = await fetch("https://digitaltwinservice.de/api/Database/GetProgram?" + params.toString(),
-	{
-		method: "GET",
-	})
-	response = await response.arrayBuffer();
-	await writeFilePromise(`service resources/${rfid}.js`, Buffer.from(response));
-	return `service resources/${rfid}.js`
+		let response = await fetch("https://digitaltwinservice.de/api/Database/GetProgram?" + params.toString(),
+		{
+			method: "GET",
+		})
+		response = await response.arrayBuffer();
+		await writeFilePromise(`service resources/${rfid}.js`, Buffer.from(response));
+	} catch (e) {
+		console.log(e)
+	} finally {
+		return `service resources/${rfid}.js`
+	}
 };
 
 async function uploadProgram(deviceId, rfid, path){
