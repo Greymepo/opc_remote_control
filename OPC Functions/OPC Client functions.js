@@ -39,6 +39,7 @@ class OPCClient {
 		this.client = null
 		this.session = null
 		this.subscription = null
+		this.monitoredItem_Values = {}
 	};
 
 
@@ -77,7 +78,15 @@ class OPCClient {
 	 */
 	async writeNodes(nodes){
 		try {
-			console.log("writing!")
+			console.log("writing:")
+			if (Array.isArray(nodes)) {
+				for (let i = 0; i < nodes.length; i++) {
+					console.log(`\t${nodes[i].value.value.value} to ${nodes[i].nodeId}`)
+				}
+			}
+			else {
+				console.log(`\t${nodes.value.value.value} to ${nodes.nodeId}`)
+			}
 			await this.session.write(nodes);
 		} catch (e) {
 			console.log(e)
@@ -163,10 +172,17 @@ class OPCClient {
 		}
 		// now we set the NodeMonitor for one of the Nodes
 		const monitoredItem = await this.#initNodeMonitor(nodeId);
-
 		// if the subscribed value changes, update the subscription monitor
+		let self = this
 		monitoredItem.on("changed", (dataValue) => {
-			callback(dataValue.value.value);
+
+			if (self.monitoredItem_Values[nodeId] == null){
+				self.monitoredItem_Values[nodeId] = dataValue.value.value
+			} else if (self.monitoredItem_Values[nodeId] != dataValue.value.value) {
+				self.monitoredItem_Values[nodeId] = dataValue.value.value
+				callback(dataValue.value.value);
+			}
+
 		});
 	}
 
