@@ -60,7 +60,7 @@ export class ServiceExecutor{
 					const program = self.shiftFromQueue();
 					eval(program)
 				}
-				await timeout();
+				await executeQueue();
 			}, 5000);
 		}
 
@@ -77,7 +77,7 @@ export class ServiceExecutor{
 		const self = this
 		requestProgram(this.serviceId, rfid).then(
 			path => {
-				let content = fs.readFileSync("./service resources/dance_for_115.js", { encoding: "UTF-8" }) //remember to replace path again
+				let content = fs.readFileSync("./service resources/bucket_without_cap.js", { encoding: "UTF-8" }) //remember to replace path again
 				self.pushInQueue(content)
 
 				// let content = fs.readFileSync(path, { encoding: "UTF-8" }) //remember to replace path again
