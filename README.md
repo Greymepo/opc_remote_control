@@ -14,4 +14,4 @@ Hierzu ist die Klasse "ServiceExecutor" interessant.
 Ein Programm kann die hier spezifizierten Maschinen unter ihrem Identifier nutzen, welcher mitgegeben wurde, um die Maschine im OPCHUB anzumelden.
 
 Beispielprogramme befinden sich im service resources ordner.
-Eigene Programme können über den Web Client hochgeladen werden.
+Eigene Programme können über den Web Client hochgeladen werden. Hierzu muss in der Datei jedoch an der markierten Stelle ein API Key eingefügt werden, welcher Zugang zum System ermöglicht.
