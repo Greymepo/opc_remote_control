@@ -36,7 +36,7 @@ async function uploadProgram(deviceId, rfid, path){
 	let response = await fetch("https://digitaltwinservice.de/api/Database/UploadProgram?deviceId=MPS_System_403_1&rfid=120",
 	{
 		headers: {
-			'X-API-KEY': "2b56f658-b11f-4067-9537-631bf27a30f0",
+			'X-API-KEY': "INSERT_API_KEY_HERE",
 			'accept': '/',
 			"Content-type": "application/json"
 		},
